@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+    /* Exact colors from the high-quality images */
+    --bg-main: #0a0c10;      /* Deep black background */
+    --bg-nav: #12151c;       /* Navigation bar color */
+    --bg-card: #1b1f28;      /* Card background color */
+    --primary: #2645f4;      /* Professional navy-blue for buttons/accents */
+    --text-white: #ffffff;
+    --text-muted: #8b949e;   /* Subtle grey for secondary text */
+    --error-red: #ff4d4d;
+    --border: #2d3748;       /* Subtle border for sections */
+}
+
+
+/* Base Body Style */
+body {
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    background-color: black;
+    color: var(--text-white);
+    line-height: 1.6;
+}
+
+/* Full Width Settings Layout */
+.full-settings-displayer {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Top Navigation Bar */
+.settings-top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10%;
+    background: var(--bg-nav);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-left { display: flex; align-items: center; gap: 20px; }
+.back-link { color: white; font-size: 1.4rem; text-decoration: none; transition: 0.3s; }
+.back-link:hover { color: var(--primary); }
+
+.user-avatar { 
+    width: 34px; height: 34px; background: var(--primary); 
+    border-radius: 50%; display: flex; align-items: center; 
+    justify-content: center; font-weight: 800; font-size: 0.85rem; 
+}
+
+/* Categories and Rows */
+.settings-wrapper {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.cat-title {
+    font-size: 0.9rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+}
+
+.list-container {
+    background: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 35px;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 25px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.setting-row:last-child { border-bottom: none; }
+.setting-row:hover { background: #232a35; }
+
+.setting-row span i { margin-right: 15px; color: var(--text-muted); width: 25px; text-align: center; }
+.setting-row i.fa-chevron-right { font-size: 0.8rem; color: var(--text-muted); }
+
+/* Support Ticket Area */
+.support-ui {
+    background: var(--bg-card);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+}
+
+.support-intro { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.support-intro i { font-size: 1.8rem; color: var(--primary); }
+
+#supportIssue {
+    width: 100%;
+    height: 120px;
+    background: #0a0c10;
+    border: 1px solid var(--border);
+    color: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    resize: none;
+    font-family: inherit;
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* High Quality Navy-Blue Button */
+.btn-submit {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-submit:hover { 
+    background: #2a41d6; 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(61, 90, 254, 0.3); 
+}
+
+/* Professional Toggle Switches */
+.toggle-switch { position: relative; width: 42px; height: 22px; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #2d3748; transition: .4s; border-radius: 34px;
+}
+.toggle-slider:before {
+    position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
+    background-color: white; transition: .4s; border-radius: 50%;
+}
+input:checked + .toggle-slider { background-color: var(--primary); }
+input:checked + .toggle-slider:before { transform: translateX(20px); }

@@ -1,0 +1,113 @@
+:root {
+    --bg-dark: #040505;
+    --card-bg: #242830;
+    --text-white: #ffffff;
+    --text-dim: #94a3b8;
+    --accent-purple: #3d5afe;
+    --accent-green: #22c55e;
+    --accent-red: #ef4444;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.history-container {
+    width: 90%;
+    max-width: 800px;
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Top Left Back Button Styling */
+.top-nav {
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: var(--text-dim);
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.back-btn:hover {
+    color: var(--text-white);
+    transform: translateX(-5px); /* Subtle slide effect */
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 20px;
+}
+
+.history-header h2 { font-size: 28px; font-weight: 800; margin: 0; }
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #334155;
+    color: var(--text-dim);
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.filter-btn:hover { 
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-white); 
+}
+
+/* Transaction Items */
+.transaction-item {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.02);
+    margin-bottom: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: 0.2s;
+}
+
+.transaction-item:hover { 
+    background: rgba(255, 255, 255, 0.05); 
+    transform: translateY(-2px); 
+}
+
+.icon-box {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    font-size: 22px;
+}
+
+.paid { background-color: var(--accent-purple); color: white; }
+.credited { background-color: var(--accent-green); color: white; }
+
+.details { flex-grow: 1; }
+.details .name { display: block; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.details .date { display: block; font-size: 14px; color: var(--text-dim); }
+
+.amount { font-size: 20px; font-weight: 800; }
+.negative { color: var(--accent-red); }
+.positive { color: var(--accent-green); }

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Prime | System Settings</title>
+    <link rel="stylesheet" href="css/setting.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <main class="full-settings-displayer">
+        <header class="settings-top-nav">
+            <div class="nav-left">
+                <a href="home.html" class="back-link"><i class="fas fa-arrow-left"></i></a>
+                <h1>System Settings</h1>
+            </div>
+            <div class="nav-right">
+                <span class="user-name">Rohan</span>
+                <div class="user-avatar">R</div>
+            </div>
+        </header>
+
+        <div class="settings-wrapper">
+            
+            <section class="settings-category">
+                <h2 class="cat-title">1. Profile Settings</h2>
+                <div class="list-container">
+                    <div class="setting-row"><span><i class="fas fa-user-circle"></i> View Profile Details</span><i class="fas fa-chevron-right"></i></div>
+                    <div class="setting-row"><span><i class="fas fa-phone-alt"></i> Edit Phone Number</span><i class="fas fa-chevron-right"></i></div>
+                    <div class="setting-row"><span><i class="fas fa-envelope-open-text"></i> Update Email Address</span><i class="fas fa-chevron-right"></i></div>
+                    <div class="setting-row"><span><i class="fas fa-map-marked-alt"></i> Change Home Address</span><i class="fas fa-chevron-right"></i></div>
+                </div>
+            </section>
+
+            <section class="settings-category">
+                <h2 class="cat-title">2. Security & Privacy</h2>
+                <div class="list-container">
+                    <div class="setting-row"><span><i class="fas fa-user-lock"></i> Change Login Password</span><i class="fas fa-chevron-right"></i></div>
+                    <div class="setting-row"><span><i class="fas fa-shield-virus"></i> Change Transaction PIN</span><i class="fas fa-chevron-right"></i></div>
+                    <div class="setting-row">
+                        <span><i class="fas fa-fingerprint"></i> Enable Two-Factor (OTP)</span>
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+                    <div class="setting-row"><span><i class="fas fa-devices"></i> Logged-in Device Management</span><i class="fas fa-chevron-right"></i></div>
+                </div>
+            </section>
+
+            <section class="settings-category">
+                <h2 class="cat-title">3. App Preferences</h2>
+                <div class="list-container">
+                    <div class="setting-row">
+                        <span><i class="fas fa-moon"></i> Enable Dark Mode</span>
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+                    <div class="setting-row"><span><i class="fas fa-language"></i> Language Selection</span><i class="fas fa-chevron-right"></i></div>
+                    <div class="setting-row">
+                        <span><i class="fas fa-bell"></i> SMS & Email Notifications</span>
+                        <label class="toggle-switch"><input type="checkbox"><span class="toggle-slider"></span></label>
+                    </div>
+                    <div class="setting-row"><span><i class="fas fa-coins"></i> Currency Format Settings</span><i class="fas fa-chevron-right"></i></div>
+                </div>
+            </section>
+
+            <section class="settings-category support-box">
+                <h2 class="cat-title">4. Help & Support Center</h2>
+                <div class="support-ui">
+                    <div class="support-intro">
+                        <i class="fas fa-headset"></i>
+                        <p>Report an issue or request assistance from our banking support team.</p>
+                    </div>
+                    <textarea id="supportIssue" placeholder="Describe your issue here (e.g., payment failed, card missing)..."></textarea>
+                    <button class="btn-submit" onclick="submitSupportTicket()">Submit Support Ticket</button>
+                    
+                    <div class="sub-links">
+                        <div class="setting-row no-border"><span><i class="fas fa-question-circle"></i> Frequently Asked Questions</span><i class="fas fa-chevron-right"></i></div>
+                        <div class="setting-row no-border"><span><i class="fas fa-info-circle"></i> View Privacy Policy</span><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="bottom-actions">
+                <button class="logout-all-btn"><i class="fas fa-power-off"></i> Logout from All Devices</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function submitSupportTicket() {
+            const issue = document.getElementById('supportIssue').value;
+            if(issue.trim() === "") {
+                alert("Please provide a description of the issue.");
+            } else {
+                alert("Success! Your ticket has been logged. Reference: NP-2026-" + Math.floor(Math.random() * 9999));
+                document.getElementById('supportIssue').value = "";
+            }
+        }
+    </script>
+</body>
+</html>

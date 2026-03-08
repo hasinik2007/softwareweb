@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Prime | My Accounts</title>
+    <link rel="stylesheet" href="css/account.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-shell">
+        <header class="page-header">
+            <div class="header-content">
+                <a href="home.html" class="back-link"><i class="fas fa-arrow-left"></i></a>
+                <h1>Account Management</h1>
+            </div>
+            <button class="add-account-btn"><i class="fas fa-plus"></i> Open New Account</button>
+        </header>
+
+        <main class="account-grid">
+            <div class="account-card primary">
+                <div class="card-top">
+                    <div class="acc-info">
+                        <span class="acc-type">Savings Account</span>
+                        <span class="acc-id">#NX-8829-01</span>
+                    </div>
+                    <i class="fas fa-piggy-bank acc-icon"></i>
+                </div>
+                <div class="balance-area">
+                    <p>Available Balance</p>
+                    <h2>25,750</h2>
+                </div>
+                <div class="card-actions">
+                    <button><i class="fas fa-history"></i> Statement</button>
+                    <button><i class="fas fa-exchange-alt"></i> Transfer</button>
+                </div>
+            </div>
+
+            <div class="account-card">
+                <div class="card-top">
+                    <div class="acc-info">
+                        <span class="acc-type">Current Account</span>
+                        <span class="acc-id">#NX-1120-05</span>
+                    </div>
+                    <i class="fas fa-briefcase acc-icon"></i>
+                </div>
+                <div class="balance-area">
+                    <p>Business Balance</p>
+                    <h2>1,12,090</h2>
+                </div>
+                <div class="card-actions">
+                    <button><i class="fas fa-file-invoice"></i> Reports</button>
+                    <button><i class="fas fa-cog"></i> Overdraft</button>
+                </div>
+            </div>
+
+            <div class="account-card loan-card">
+                <div class="card-top">
+                    <div class="acc-info">
+                        <span class="acc-type">Home Loan Account</span>
+                        <span class="acc-id">#NX-LOAN-99</span>
+                    </div>
+                    <i class="fas fa-home acc-icon"></i>
+                </div>
+                <div class="balance-area">
+                    <p>Outstanding Amount</p>
+                    <h2 class="text-red">4,50,000</h2>
+                </div>
+                <div class="card-actions">
+                    <button class="pay-btn">Pay Installment</button>
+                    <button>Details</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

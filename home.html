@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Prime | Digital Banking</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-shell">
+        <nav class="side-nav">
+            <div class="brand">
+                <div class="brand-logo">N</div>
+                <span>Nexus Prime</span>
+            </div>
+            <ul class="menu-list">
+                <li class="active"><i class="fas fa-home"></i> Home</li>
+                <a href="account.html" style="text-decoration: none;">
+                    <li><i class="fas fa-university"></i> Accounts</li>
+                </a>
+                <a href="card.html" style="text-decoration: none;">
+                    <li><i class="fas fa-credit-card"></i> Cards</li>
+                </a>
+                <a href="wealth.html" style="text-decoration: none;">
+                    <li><i class="fas fa-chart-pie"></i> Wealth</li>
+                </a>
+                <a href="setting.html" style="text-decoration: none;">
+                    <li id="settingsBtn"><i class="fas fa-user-shield"></i> Settings</li>
+                </a>
+                </ul>
+            <div class="logout-footer">
+                <a href="index.html" style="color:#2645f4">
+                    <i class="fas fa-sign-out-alt" style="color:#2645f4"></i  > Logout
+                </a>
+            </div>
+        </nav>
+
+        <main class="dashboard-area">
+            <header class="main-header">
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="mainSearch" placeholder="Search services (e.g., 'mobile', 'gas', 'insurance')" onkeyup="searchServices()">
+                </div>
+                <div class="header-actions">
+                    <div class="location"><i class="fas fa-map-marker-alt"></i> Amaravati</div>
+                    <i class="fas fa-bell notification-dot"></i>
+                    <div class="user-profile">R</div>
+                </div>
+            </header>
+
+            <section class="banner-container">
+                <div class="premium-hero">
+                    <div class="hero-text">
+                        <span class="badge">PLATINUM EXCLUSIVE</span>
+                        <h1>5% Unlimited Rewards</h1>
+                        <p>On every travel booking and dining spend this month.</p>
+                        <button class="hero-btn">Claim Now <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?auto=format&fit=crop&w=1200&q=80" alt="Nexus Prime Banner">
+                </div>
+            </section>
+
+            <div id="servicesWrapper">
+                
+                <section class="service-section">
+                    <div class="section-header">
+                        <h3>Money Transfers</h3>
+                        <span class="refer-badge"><i class="fas fa-gift"></i> Refer & Earn $20</span>
+                    </div>
+                    <div class="grid-layout">
+                        <a href="amount.html" style="text-decoration: none;">
+                            <div class="service-card" data-name="mobile number pay phone transfer">
+                                <div class="icon-wrap purple"><i class="fas fa-mobile-alt"></i></div>
+                                <p>To Mobile Number</p>
+                            </div>
+                        </a>
+                         <a href="bank.html" style="text-decoration: none;">
+                            <div class="service-card" data-name="bank upi id transfer money">
+                                <div class="icon-wrap blue"><i class="fas fa-building"></i></div>
+                                <p>To Bank/UPI ID</p>
+                            </div>
+                        </a>
+                         <a href="deposit.html" style="text-decoration: none;">
+                            <div class="service-card" data-name="deposit money add cash">
+                                <div class="icon-wrap gold"><i class="fas fa-plus-circle"></i></div>
+                                <p>Deposit Money</p>
+                            </div>
+                        </a>
+                         <a href="balance.html" style="text-decoration: none;">
+                            <div class="service-card highlight" data-name="check balance money account">
+                                <div class="icon-wrap green"><i class="fas fa-wallet"></i></div>
+                                <p>Check Balance</p>
+                            </div>
+                        </a>
+                        <a href="history.html" style="text-decoration: none;">
+                            <div class="service-card highlight" data-name="view history transactions statement">
+                                <div class="icon-wrap indigo"><i class="fas fa-receipt"></i></div>
+                                <p>View History</p>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="service-section">
+                    <h3 class="section-title">Recharge & Pay Bills</h3>
+                    <div class="grid-layout">
+                        <a href="bill.html" style="text-decoration: none;">
+                            <div class="service-card highlight" data-name="billing pay bills invoice">
+                                <div class="icon-wrap bill-red"><i class="fas fa-file-invoice"></i></div>
+                                <p>Billing</p>
+                            </div>
+                        </a>
+                        <a href="mobile.html" style="text-decoration: none;">
+                            <div class="service-card" data-name="mobile recharge sim topup">
+                                <div class="icon-wrap cyan"><i class="fas fa-sim-card"></i></div>
+                                <p>Mobile Recharge</p>
+                            </div>
+                        </a>
+                        <a href="electricity.html" style="text-decoration: none;">
+                            <div class="service-card" data-name="electricity light bill">
+                                <div class="icon-wrap yellow"><i class="fas fa-lightbulb"></i></div>
+                                <p>Electricity</p>
+                            </div>
+                        </a>
+                        <a href="lpg.html" style="text-decoration: none;">
+                            <div class="service-card" data-name="lpg cylinder gas booking">
+                                <div class="icon-wrap red"><i class="fas fa-burn"></i></div>
+                                <p>LPG Cylinder</p>
+                            </div>
+                        </a>
+                        <a href="credit.html" style="text-decoration: none;">
+                            <div class="service-card" data-name="credit card bill payment">
+                                <div class="icon-wrap blue-dark"><i class="fas fa-credit-card"></i></div>
+                                <p>Credit Card Bill</p>
+                            </div>
+                        </a>
+                            
+                        </div>
+                </section>
+
+                <section class="service-section">
+                    <h3 class="section-title">Insurance & Wealth</h3>
+                    <div class="grid-layout">
+                        <div class="service-card" data-name="bike car vehicle insurance">
+                            <div class="icon-wrap teal"><i class="fas fa-shield-alt"></i></div>
+                            <p>Bike/Car Insurance</p>
+                        </div>
+                        <div class="service-card" data-name="health protect medical insurance">
+                            <div class="icon-wrap rose"><i class="fas fa-heartbeat"></i></div>
+                            <p>Health Protect</p>
+                        </div>
+                        <div class="service-card" data-name="digital gold silver investment">
+                            <div class="icon-wrap gold"><i class="fas fa-coins"></i></div>
+                            <p>Digital Gold</p>
+                        </div>
+                        <div class="service-card" data-name="mutual funds investment sip">
+                            <div class="icon-wrap green-bright"><i class="fas fa-chart-line"></i></div>
+                            <p>Mutual Funds</p>
+                        </div>
+                        <a href="credit.html" style="text-decoration: none;">
+                            <div class="service-card" data-name="dth cable tv recharge">
+                                <div class="icon-wrap pink"><i class="fas fa-tv"></i></div>
+                                <p>DTH / Cable</p>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="service-section">
+                    <h3 class="section-title">Travel & Transit</h3>
+                    <div class="grid-layout">
+                        <div class="service-card" data-name="flight tickets airplane travel">
+                            <div class="icon-wrap navy"><i class="fas fa-plane"></i></div>
+                            <p>Flight Tickets</p>
+                        </div>
+                        <div class="service-card" data-name="bus booking travel">
+                            <div class="icon-wrap brown"><i class="fas fa-bus"></i></div>
+                            <p>Bus Booking</p>
+                        </div>
+                        <div class="service-card" data-name="hotels stay booking">
+                            <div class="icon-wrap orange-dark"><i class="fas fa-hotel"></i></div>
+                            <p>Hotels</p>
+                        </div>
+                        <div class="service-card" data-name="self account transfer">
+                            <div class="icon-wrap orange"><i class="fas fa-sync-alt"></i></div>
+                            <p>To Self Account</p>
+                        </div>
+                        
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function searchServices() {
+            let input = document.getElementById('mainSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('service-card');
+            let sections = document.getElementsByClassName('service-section');
+
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name');
+                if (name.includes(input)) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+
+            // Hide empty sections during search
+            for (let j = 0; j < sections.length; j++) {
+                let visibleCards = sections[j].querySelectorAll('.service-card[style="display: block;"]').length;
+                // If input is empty, show all sections, otherwise check card visibility
+                if (input === "") {
+                    sections[j].style.display = "block";
+                    for(let k=0; k<cards.length; k++) cards[k].style.display = "block";
+                } else if (visibleCards === 0) {
+                    sections[j].style.display = "none";
+                } else {
+                    sections[j].style.display = "block";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

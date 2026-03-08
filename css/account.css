@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+
+:root {
+    --bg-dark: #0a0c10;
+    --card-bg: #1b1f28;
+    --accent: #3d5afe;
+    --text-white: #ffffff;
+    --text-dim: #94a3b8;
+    --green: #27ae60;
+    --red: #ff4757;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+}
+
+.app-shell {
+    padding: 30px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header Styling */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.back-link {
+    color: var(--text-white);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.back-link:hover { color: var(--accent); }
+
+.add-account-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* Account Grid */
+.account-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+/* Card Styling */
+.account-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 24px;
+    border: 1px solid #2d3748;
+    transition: 0.3s;
+}
+
+.account-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.acc-type { display: block; font-size: 1.1rem; font-weight: 800; }
+.acc-id { display: block; font-size: 0.8rem; color: var(--text-dim); margin-top: 4px; }
+.acc-icon { font-size: 1.8rem; color: var(--accent); }
+
+.balance-area p { font-size: 0.85rem; color: var(--text-dim); margin: 0; }
+.balance-area h2 { font-size: 2.2rem; margin: 10px 0 25px 0; }
+.text-red { color: var(--red); }
+
+/* Card Actions */
+.card-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.card-actions button {
+    flex: 1;
+    background: #12151c;
+    border: 1px solid #2d3748;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card-actions button:hover { background: var(--accent); border-color: var(--accent); }
+.pay-btn { border-color: var(--red) !important; color: var(--red) !important; }
+.pay-btn:hover { background: var(--red) !important; color: white !important; }

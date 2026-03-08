@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoBank | Deposit Center</title>
+    <link rel="stylesheet" href="css/deposit.css">
+</head>
+<body>
+    <div class="deposit-wrapper">
+        <div class="top-nav">
+            <a href="home.html" class="back-link">← Back to Home</a>
+        </div>
+
+        <div class="deposit-card">
+            <div class="header">
+                <h2>Cashier</h2>
+                <p>Secure Transaction Portal</p>
+            </div>
+
+            <form id="depositForm">
+                <div class="form-group">
+                    <label>Transaction Type</label>
+                    <div class="select-wrapper">
+                        <select id="transType">
+                            <option value="self">Self Deposit</option>
+                            <option value="term">Term Deposit</option>
+                            <option value="mobile">Mobile Check</option>
+                            <option value="third">Third-Party</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Amount (₹)</label>
+                    <input type="number" id="amount" placeholder="Enter amount" required>
+                </div>
+
+                <button type="button" class="process-btn" onclick="handleDeposit()">Process Deposit</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">✓</div>
+            <h3>Deposit Successful</h3>
+            <p id="receiptMsg"></p>
+            <button class="close-btn" onclick="closeModal()">Done</button>
+        </div>
+    </div>
+
+    <script>
+        function handleDeposit() {
+            const amount = document.getElementById('amount').value;
+            if (!amount || amount <= 0) {
+                alert("Please enter a valid amount.");
+                return;
+            }
+
+            const btn = document.querySelector('.process-btn');
+            btn.innerHTML = "Processing...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('receiptMsg').innerText = `₹${amount} has been successfully credited to your account.`;
+                document.getElementById('successModal').style.display = "flex";
+                btn.innerHTML = "Process Deposit";
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').style.display = "none";
+            window.location.href = "home.html";
+        }
+    </script>
+</body>
+</html>

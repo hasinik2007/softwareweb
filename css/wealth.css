@@ -1,0 +1,54 @@
+:root {
+    --bg-dark: #0a0c10;     /* Deeper black background */
+    --card-dark: #1b1f28;   /* Professional card color from 2nd image */
+    --accent-blue: #3d5afe;  /* Vibrant blue from 2nd image */
+    --text-dim: #8b949e;    /* Muted text color */
+    --border: #2d3748;      /* Border color that matches the 2nd image */
+}
+
+body {
+    font-family: 'Outfit', sans-serif; /* Changed from Inter to Outfit */
+    background-color: var(--bg-dark);
+    color: white;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.wealth-container { max-width: 650px; margin: 0 auto; padding: 40px 20px; }
+
+.top-nav { display: flex; align-items: center; gap: 20px; margin-bottom: 30px; }
+.back-link { text-decoration: none; color: var(--text-dim); font-weight: 700; }
+
+.portfolio-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    padding: 40px;
+    border-radius: 24px;
+    margin-bottom: 40px;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.portfolio-card p { color: var(--text-dim); margin: 0 0 10px; text-transform: uppercase; font-size: 12px; }
+.portfolio-card h2 { font-size: 36px; margin: 0 0 10px; }
+.growth { color: #10b981; font-weight: 700; font-size: 14px; }
+
+/* Menu List Styling (Matching System Settings) */
+.menu-section { margin-bottom: 35px; }
+.menu-section h3 { font-size: 13px; color: var(--accent-indigo); margin-bottom: 15px; letter-spacing: 1px; }
+
+.menu-card { background: var(--card-dark); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 25px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.menu-item:last-child { border-bottom: none; }
+.menu-item:hover { background: rgba(255,255,255,0.03); padding-left: 30px; }
+.menu-item span { color: var(--text-dim); }

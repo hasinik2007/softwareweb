@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoBank | Electricity Bill</title>
+    <link rel="stylesheet" href="css/electricity.css">
+</head>
+<body>
+    <div class="bill-wrapper">
+        <div class="top-nav">
+            <a href="home.html" class="back-link">← Back</a>
+        </div>
+
+        <div class="bill-card">
+            <div class="header">
+                <h2>Bills Payment</h2>
+                <p>Fast & Secure Utility Payments</p>
+            </div>
+
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label>Bill Type</label>
+                    <div class="select-wrapper">
+                        <select id="billType">
+                            <option value="electricity">Electricity</option>
+                            <option value="gas">Mobile Recharge</option>
+                            <option value="water">Water Bill</option>
+                            <option value="gas">LPG Gas</option>
+                            <option value="gas">Cable</option>
+                            <option value="gas">Credit card</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Amount (₹)</label>
+                    <input type="number" id="amount" placeholder="Enter amount" required>
+                </div>
+
+                <button type="button" class="pay-btn" onclick="processPayment()">Pay Bill Now</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">✓</div>
+            <h3>Payment Successful!</h3>
+            <p id="receiptMsg"></p>
+            <button class="close-btn" onclick="closeModal()">Done</button>
+        </div>
+    </div>
+
+    <script>
+        function processPayment() {
+            const amount = document.getElementById('amount').value;
+            if (amount <= 0) {
+                alert("Please enter a valid amount.");
+                return;
+            }
+
+            // Simulate "Processing"
+            const btn = document.querySelector('.pay-btn');
+            btn.innerHTML = "Processing...";
+            btn.style.opacity = "0.7";
+
+            setTimeout(() => {
+                document.getElementById('receiptMsg').innerText = `₹${amount} has been paid successfully to the Electricity Board.`;
+                document.getElementById('successModal').style.display = "flex";
+                btn.innerHTML = "Pay Bill Now";
+                btn.style.opacity = "1";
+            }, 1500);
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').style.display = "none";
+            window.location.href = "home.html";
+        }
+    </script>
+</body>
+</html>

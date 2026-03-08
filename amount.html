@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoBank | Secure Pay</title>
+    <link rel="stylesheet" href="css/amount.css">
+</head>
+<body>
+    <div class="pay-app-container">
+        <nav class="top-nav">
+            <a href="home.html" class="back-arrow">←</a>
+            <div class="nav-title">
+                <h1>Send Money</h1>
+                <p>To any mobile number</p>
+            </div>
+        </nav>
+
+        <main class="payment-body">
+            <div class="input-card">
+                <label>Recipient Mobile Number</label>
+                <input type="tel" id="mobileInput" placeholder="Enter 10-digit number" maxlength="10" oninput="checkNumber(this)">
+            </div>
+
+            <div id="amountSection" class="input-card hidden">
+                <label>Amount to Send (₹)</label>
+                <div class="currency-input">
+                    <span>₹</span>
+                    <input type="number" id="amountInput" placeholder="0.00">
+                </div>
+                <button class="pay-now-btn" onclick="executePayment()">Proceed to Pay</button>
+            </div>
+
+            <div class="history-list">
+                <h3>Recent Transactions</h3>
+                
+                <div class="history-item" onclick="quickSelect('9844012345')">
+                    <div class="avatar blue">AK</div>
+                    <div class="item-info">
+                        <strong>Arjun Kapur</strong>
+                        <span>98440 12345</span>
+                    </div>
+                </div>
+
+                <div class="history-item" onclick="quickSelect('9731056789')">
+                    <div class="avatar green">PN</div>
+                    <div class="item-info">
+                        <strong>Priya Nair</strong>
+                        <span>97310 56789</span>
+                    </div>
+                </div>
+                <div class="history-item" onclick="quickSelect('7002567399')">
+                    <div class="avatar green">PJ</div>
+                    <div class="item-info">
+                        <strong>Hussain Shahid</strong>
+                        <span>70025 67399</span>
+                    </div>
+                </div>
+                <div class="history-item" onclick="quickSelect('1234589670')">
+                    <div class="avatar green">PN</div>
+                    <div class="item-info">
+                        <strong>Preethi Nair</strong>
+                        <span>12345 89670</span>
+                    </div>
+                </div>
+                <div class="history-item" onclick="quickSelect('6543217890')">
+                    <div class="avatar green">PN</div>
+                    <div class="item-info">
+                        <strong>Kavya Sharma</strong>
+                        <span>65432 17890</span>
+                    </div>
+                </div>
+
+                <div class="history-item" onclick="quickSelect('9108022334')">
+                    <div class="avatar purple">MS</div>
+                    <div class="item-info">
+                        <strong>Meera Sharma</strong>
+                        <span>91080 22334</span>
+                    </div>
+                </div>
+                
+                </div>
+        </main>
+    </div>
+
+    <div id="statusModal" class="modal">
+        <div class="modal-content">
+            <div class="success-ring">✓</div>
+            <h2>Transfer Successful</h2>
+            <p id="statusMsg"></p>
+            <button class="done-btn" onclick="location.href='home.html'">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <script>
+        function checkNumber(input) {
+            const amountSection = document.getElementById('amountSection');
+            // Check if exactly 10 digits are entered
+            if (input.value.length === 10) {
+                amountSection.classList.remove('hidden');
+                amountSection.classList.add('slide-up');
+            } else {
+                amountSection.classList.add('hidden');
+            }
+        }
+
+        function quickSelect(num) {
+            document.getElementById('mobileInput').value = num;
+            checkNumber(document.getElementById('mobileInput'));
+        }
+
+        function executePayment() {
+            const num = document.getElementById('mobileInput').value;
+            const amt = document.getElementById('amountInput').value;
+            
+            if(!amt || amt <= 0) return alert("Please enter a valid amount");
+
+            document.getElementById('statusMsg').innerHTML = `<b>₹${amt}</b> sent successfully to<br>${num}`;
+            document.getElementById('statusModal').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
