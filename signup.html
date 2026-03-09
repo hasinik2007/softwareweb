@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Prime | Create Account</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="login-card">
+        <div class="header">
+            <div class="logo">Nexus<span>Prime</span></div>
+            <p>Create your secure digital banking profile</p>
+        </div>
+
+        <form onsubmit="event.preventDefault();">
+            <div class="input-box">
+                <label>Full Name</label>
+                <input type="text" id="regName" placeholder="Enter your name" required>
+            </div>
+            <div class="input-box">
+                <label>Email Address</label>
+                <input type="email" id="regEmail" placeholder="name@email.com" required>
+            </div>
+            <div class="input-box">
+                <label>Mobile Number</label>
+                <input type="tel" id="regPhone" placeholder="10-digit number" required>
+            </div>
+            <div class="input-box">
+                <label>Create Password</label>
+                <input type="password" id="regPass" placeholder="Min 6 characters" required>
+            </div>
+            <button type="button" class="btn btn-cust" onclick="handleSignUp()">Register Now</button>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="index.html" style="color: #64748b; text-decoration: none;">Already have an account? Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script type="module">
+        import { firebaseConfig } from './config.js';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.handleSignUp = async function() {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const phone = document.getElementById('regPhone').value;
+            const pass = document.getElementById('regPass').value;
+
+            if (pass.length < 6) {
+                alert("Password must be at least 6 characters.");
+                return;
+            }
+
+            try {
+                // Creates the login record in Firebase Auth
+                const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+                const user = userCredential.user;
+
+                // Saves the profile details in Firestore /users collection
+                await setDoc(doc(db, "users", user.uid), {
+                    fullName: name,
+                    email: email,
+                    phone: phone,
+                    accountNumber: "AB" + Math.floor(Math.random() * 90000000 + 10000000), 
+                    accountCreated: "March 9, 2026", 
+                    status: "Active"
+                });
+
+                alert("Welcome to Nexus Prime, " + name + "!");
+                window.location.href = "home.html";
+            } catch (error) {
+                alert("Registration Error: " + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

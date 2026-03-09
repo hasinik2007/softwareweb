@@ -38,17 +38,19 @@
         </nav>
 
         <main class="dashboard-area">
-            <header class="main-header">
-                <div class="search-container">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="mainSearch" placeholder="Search services (e.g., 'mobile', 'gas', 'insurance')" onkeyup="searchServices()">
-                </div>
-                <div class="header-actions">
-                    <div class="location"><i class="fas fa-map-marker-alt"></i> Amaravati</div>
-                    <i class="fas fa-bell notification-dot"></i>
-                    <div class="user-profile">R</div>
-                </div>
-            </header>
+    <header class="main-header">
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="mainSearch" placeholder="Search services...">
+        </div>
+        <div class="header-actions">
+            <div class="location"><i class="fas fa-map-marker-alt"></i> Amaravati</div>
+            <i class="fas fa-bell notification-dot"></i>
+            <div class="user-profile" id="userInitial">R</div>
+        </div>
+    </header>
+
+    <h2 id="welcomeText" style="margin: 20px 0 20px 30px; font-weight: 800; color: white;">Welcome back!</h2>
 
             <section class="banner-container">
                 <div class="premium-hero">
@@ -61,6 +63,32 @@
                     <img src="https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?auto=format&fit=crop&w=1200&q=80" alt="Nexus Prime Banner">
                 </div>
             </section>
+            <section id="profileSection" class="service-section" style="display: none; background: white; padding: 30px; border-radius: 20px; margin: 20px 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+    <h3 style="margin-bottom: 20px; color: #0f172a;"><i class="fas fa-user-circle"></i> My Profile</h3>
+    <div style="display: grid; gap: 15px; font-size: 16px;">
+        <div style="border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+            <span style="color: #64748b;">Full Name:</span> 
+            <strong id="profName" style="float: right;">-</strong>
+        </div>
+        <div style="border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+            <span style="color: #64748b;">Account Number:</span> 
+            <strong id="profAcc" style="float: right;">-</strong>
+        </div>
+        <div style="border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+            <span style="color: #64748b;">Email:</span> 
+            <strong id="profEmail" style="float: right;">-</strong>
+        </div>
+        <div style="border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+            <span style="color: #64748b;">Phone:</span> 
+            <strong id="profPhone" style="float: right;">-</strong>
+        </div>
+        <div>
+            <span style="color: #64748b;">Account Status:</span> 
+            <strong style="float: right; color: #10b981;">Active</strong>
+        </div>
+    </div>
+    <button onclick="toggleProfile()" style="margin-top: 20px; background: #2645f4; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Close Profile</button>
+</section>
 
             <div id="servicesWrapper">
                 
@@ -194,35 +222,71 @@
         </main>
     </div>
 
-    <script>
-        function searchServices() {
-            let input = document.getElementById('mainSearch').value.toLowerCase();
-            let cards = document.getElementsByClassName('service-card');
-            let sections = document.getElementsByClassName('service-section');
+   <script type="module">
+    // 1. Import all required modules, including signOut for the logout feature
+    import { firebaseConfig } from './config.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-            for (let i = 0; i < cards.length; i++) {
-                let name = cards[i].getAttribute('data-name');
-                if (name.includes(input)) {
-                    cards[i].style.display = "block";
-                } else {
-                    cards[i].style.display = "none";
-                }
-            }
+    // 2. Your project configuration
+    
 
-            // Hide empty sections during search
-            for (let j = 0; j < sections.length; j++) {
-                let visibleCards = sections[j].querySelectorAll('.service-card[style="display: block;"]').length;
-                // If input is empty, show all sections, otherwise check card visibility
-                if (input === "") {
-                    sections[j].style.display = "block";
-                    for(let k=0; k<cards.length; k++) cards[k].style.display = "block";
-                } else if (visibleCards === 0) {
-                    sections[j].style.display = "none";
-                } else {
-                    sections[j].style.display = "block";
-                }
+    // 3. Initialize Firebase Services
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // 4. Data Listener: Pulls Rohan's details as soon as he logs in
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            // Fetch the specific user document using the unique UID
+            const docRef = doc(db, "users", user.uid);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                const fullName = userData.fullName || "User";
+
+                // Update UI: Initial in the circle and personalized welcome
+                document.getElementById('userInitial').innerText = fullName.charAt(0).toUpperCase();
+                document.getElementById('welcomeText').innerText = `Welcome back, ${fullName}!`;
+
+                // Fill the Profile Section fields exactly like your figure
+                document.getElementById('profName').innerText = userData.fullName;
+                document.getElementById('profAcc').innerText = userData.accountNumber;
+                document.getElementById('profEmail').innerText = userData.email;
+                document.getElementById('profPhone').innerText = userData.phone;
             }
+        } else {
+            // Perfect Security: Kick anyone out who isn't logged in
+            window.location.href = "index.html";
         }
-    </script>
+    });
+
+    // 5. Toggle Logic: Swaps the service grid for the profile view
+    window.toggleProfile = function() {
+        const section = document.getElementById('profileSection');
+        const wrapper = document.getElementById('servicesWrapper');
+        if (section.style.display === "none") {
+            section.style.display = "block"; // Show Rohan's Profile
+            wrapper.style.display = "none";  // Hide the Services Grid
+        } else {
+            section.style.display = "none";  // Hide Profile
+            wrapper.style.display = "block"; // Show Services Grid
+        }
+    }
+
+    // 6. Secure Logout: Ends the Firebase session
+    window.handleLogout = async function() {
+        try {
+            await signOut(auth);
+            window.location.href = "index.html"; // Return to login portal
+        } catch (error) {
+            console.error("Logout error", error);
+            alert("Security Error: Could not log out safely.");
+        }
+    }
+</script>
 </body>
 </html>

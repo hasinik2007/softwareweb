@@ -1,16 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
 :root {
-    --bg-dark: #040505;
-    --card-bg: #242830;
+    --bg-main: #0a0c10;      /* Deep black background */
+    --bg-nav: #12151c;       /* Navigation bar color */
+    --bg-card: #1b1f28;      /* Elevated card color */
+    --primary: #3d5afe;      /* Professional navy-blue */
     --text-white: #ffffff;
-    --text-dim: #94a3b8;
-    --accent-purple: #3d5afe;
+    --text-muted: #8b949e;
     --accent-green: #22c55e;
-    --accent-red: #ef4444;
+    --error-red: #ff4d4d;
+    --border: #2d3748;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-dark);
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-main);
     color: var(--text-white);
     margin: 0;
     display: flex;
@@ -21,93 +25,128 @@ body {
 .history-container {
     width: 90%;
     max-width: 800px;
-    background: var(--card-bg);
-    padding: 40px;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    padding: 20px;
 }
 
-/* Top Left Back Button Styling */
+/* Back Button */
 .top-nav {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .back-btn {
     text-decoration: none;
-    color: var(--text-dim);
+    color: var(--text-muted);
     font-weight: 600;
     font-size: 16px;
     transition: 0.3s;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .back-btn:hover {
-    color: var(--text-white);
-    transform: translateX(-5px); /* Subtle slide effect */
+    color: var(--primary);
+    transform: translateX(-5px);
 }
 
+/* Header Styling */
 .history-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 20px;
 }
 
-.history-header h2 { font-size: 28px; font-weight: 800; margin: 0; }
+.history-header h2 { 
+    font-size: 28px; 
+    font-weight: 800; 
+    margin: 0; 
+}
 
 .filter-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #334155;
-    color: var(--text-dim);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     font-weight: 600;
     transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .filter-btn:hover { 
-    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
     color: var(--text-white); 
 }
 
-/* Transaction Items */
+/* Transaction List Styling */
+.transaction-list {
+    background: var(--bg-card);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
 .transaction-item {
     display: flex;
     align-items: center;
-    padding: 24px;
-    background: rgba(255, 255, 255, 0.02);
-    margin-bottom: 16px;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 20px 25px;
+    border-bottom: 1px solid var(--border);
     transition: 0.2s;
 }
 
-.transaction-item:hover { 
-    background: rgba(255, 255, 255, 0.05); 
-    transform: translateY(-2px); 
+.transaction-item:last-child { 
+    border-bottom: none; 
 }
 
+.transaction-item:hover { 
+    background: #232a35; 
+}
+
+/* Icon Boxes */
 .icon-box {
-    width: 54px;
-    height: 54px;
+    width: 52px;
+    height: 52px;
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 20px;
-    font-size: 22px;
+    font-size: 20px;
 }
 
-.paid { background-color: var(--accent-purple); color: white; }
-.credited { background-color: var(--accent-green); color: white; }
+.credited { 
+    background-color: rgba(34, 197, 94, 0.15); 
+    color: var(--accent-green); 
+}
 
+.paid { 
+    background-color: rgba(61, 90, 254, 0.15); 
+    color: var(--primary); 
+}
+
+/* Details and Amount */
 .details { flex-grow: 1; }
-.details .name { display: block; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.details .date { display: block; font-size: 14px; color: var(--text-dim); }
+.details .name { 
+    display: block; 
+    font-size: 18px; 
+    font-weight: 700; 
+    margin-bottom: 4px; 
+}
+.details .date { 
+    display: block; 
+    font-size: 14px; 
+    color: var(--text-muted); 
+}
 
-.amount { font-size: 20px; font-weight: 800; }
-.negative { color: var(--accent-red); }
+.amount { 
+    font-size: 18px; 
+    font-weight: 800; 
+}
+
+.negative { color: var(--error-red); }
 .positive { color: var(--accent-green); }

@@ -16,9 +16,8 @@
             
             <div class="amount-section">
                 <p class="label">Total Available Balance</p>
-                <h1 class="rupee-amount">₹25,750.00</h1>
+                <h1 class="rupee-amount" id="accBalance">₹50000</h1>
             </div>
-
             <div class="stats-grid">
                 <div class="stat-item">
                     <span class="stat-label">Monthly Income</span>
@@ -36,5 +35,49 @@
             <button class="action-btn outline">View Analytics</button>
         </div>
     </div>
+    <script type="module">
+        import { firebaseConfig } from './config.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+   
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            // 1. Query the 'transaction' collection specifically for your userID
+            const q = query(collection(db, "transaction"), where("userID", "==", user.uid));
+            
+            try {
+                const querySnapshot = await getDocs(q);
+                let totalBalance = 0;
+
+                // 2. Loop through each transaction found
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const amount = parseFloat(data.amount);
+                    
+                    // 3. Add if 'credited', subtract if 'paid'
+                    if (data.type === "credited") {
+                        totalBalance += amount;
+                    } else if (data.type === "paid") {
+                        totalBalance -= amount;
+                    }
+                });
+
+                // Update the UI with the calculated sum
+                document.getElementById('accBalance').innerText = `₹${totalBalance.toLocaleString('en-IN')}.00`;
+            } catch (error) {
+                console.error("Error fetching transactions:", error);
+                document.getElementById('accBalance').innerText = "Error Loading";
+            }
+        } else {
+            window.location.href = "index.html";
+        }
+    });
+</script>
 </body>
 </html>

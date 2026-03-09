@@ -20,21 +20,27 @@
         </div>
 
         <div id="customer" class="tab-content active">
-            <form>
-                <div class="input-box">
-                    <label>Account Number</label>
-                    <input type="text" placeholder="Enter 5-digit ID" required>
-                </div>
-                <div class="input-box">
-                    <label>Password</label>
-                    <input type="password" placeholder="••••••••" required>
-                </div>
-                <a href="home.html" class="btn btn-cust" style="text-decoration: none; display: inline-block;text-align:center;">
-                    Login to Dashboard
-                </a>
-                <a href="#" class="forgot">Forgot Password?</a>
-            </form>
+    <form onsubmit="event.preventDefault();">
+        <div class="input-box">
+            <label>Email Address</label>
+            <input type="email" id="custEmail" placeholder="rohan@email.com" required>
         </div>
+        <div class="input-box">
+            <label>Password</label>
+            <input type="password" id="custPass" placeholder="••••••••" required>
+        </div>
+        <button type="button" class="btn btn-cust" onclick="loginUser('custEmail', 'custPass')">
+            Login to Dashboard
+        </button>
+        
+        <div style="text-align: center; margin-top: 20px; font-size: 15px;">
+            <span style="color: #64748b;">New to AutoBank? </span>
+            <a href="signup.html" style="color: #2645f4; font-weight: 700; text-decoration: none;">Create Account</a>
+        </div>
+
+        <a href="#" class="forgot">Forgot Password?</a>
+    </form>
+</div>
 
         <div id="staff" class="tab-content">
             <form>
@@ -70,23 +76,52 @@
         </div>
     </div>
 
-    <script>
-        function switchTab(evt, portalName) {
-            var i, tabcontent, tablinks;
-            // Hide all tab contents
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
-            // Deactivate all buttons
-            tablinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-            // Show current tab and add active class to button
-            document.getElementById(portalName).classList.add("active");
-            evt.currentTarget.classList.add("active");
+    <script type="module">
+        import { firebaseConfig } from './config.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Make the tab switcher global so it still works with type="module"
+    window.switchTab = function(evt, portalName) {
+        let i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
         }
-    </script>
+        tablinks = document.getElementsByClassName("tab-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(portalName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    // REAL LOGIN FUNCTION
+    window.loginUser = async function(emailId, passId) {
+        const email = document.getElementById(emailId).value;
+        const password = document.getElementById(passId).value;
+        const btn = event.target;
+
+        if (!email || !password) {
+            alert("Please enter both Email and Password");
+            return;
+        }
+
+        btn.innerText = "Verifying Security...";
+        
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            // On success, Firebase now knows it's Rohan
+            window.location.href = "home.html";
+        } catch (error) {
+            alert("Security Error: " + error.message);
+            btn.innerText = "Login to Dashboard";
+        }
+    }
+</script>
 </body>
 </html>

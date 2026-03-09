@@ -92,32 +92,69 @@
         </div>
     </div>
 
-    <script>
-        function checkNumber(input) {
-            const amountSection = document.getElementById('amountSection');
-            // Check if exactly 10 digits are entered
-            if (input.value.length === 10) {
-                amountSection.classList.remove('hidden');
-                amountSection.classList.add('slide-up');
-            } else {
-                amountSection.classList.add('hidden');
-            }
+    <script type="module">
+    import { firebaseConfig } from './config.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; // ADDED AUTH
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app); // INITIALIZED AUTH
+    const db = getFirestore(app);
+
+    window.checkNumber = function(input) {
+        const amountSection = document.getElementById('amountSection');
+        if (input.value.length === 10) {
+            amountSection.classList.remove('hidden');
+            amountSection.classList.add('slide-up');
+        } else {
+            amountSection.classList.add('hidden');
+        }
+    };
+
+    window.quickSelect = function(num) {
+        const input = document.getElementById('mobileInput');
+        input.value = num;
+        window.checkNumber(input);
+    };
+
+    window.executePayment = async function() {
+        const num = document.getElementById('mobileInput').value;
+        const amt = document.getElementById('amountInput').value;
+        const btn = document.querySelector('.pay-now-btn');
+        
+        if(!amt || amt <= 0) return alert("Please enter a valid amount");
+
+        // Check if user is logged in before processing
+        if (!auth.currentUser) {
+            return alert("Security Session Expired. Please login again.");
         }
 
-        function quickSelect(num) {
-            document.getElementById('mobileInput').value = num;
-            checkNumber(document.getElementById('mobileInput'));
-        }
+        btn.innerHTML = "Processing...";
+        btn.disabled = true;
 
-        function executePayment() {
-            const num = document.getElementById('mobileInput').value;
-            const amt = document.getElementById('amountInput').value;
-            
-            if(!amt || amt <= 0) return alert("Please enter a valid amount");
+        try {
+            // 2. Automatically includes your userID
+            await addDoc(collection(db, "transaction"), {
+                name: "Paid to " + num,
+                amount: Number(amt),
+                type: "paid",
+                date: serverTimestamp(),
+                userID: auth.currentUser.uid // THE FIX: Matches pAYrtVCY... automatically
+            });
 
             document.getElementById('statusMsg').innerHTML = `<b>₹${amt}</b> sent successfully to<br>${num}`;
             document.getElementById('statusModal').style.display = 'flex';
+        } catch (error) {
+            console.error("Error adding transaction: ", error);
+            alert("Transfer failed. Check your Firebase Rules.");
+        } finally {
+            btn.innerHTML = "Proceed to Pay";
+            btn.disabled = false;
         }
-    </script>
+    };
+</script>
 </body>
 </html>

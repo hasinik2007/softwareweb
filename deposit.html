@@ -50,30 +50,67 @@
         </div>
     </div>
 
-    <script>
-        function handleDeposit() {
-            const amount = document.getElementById('amount').value;
-            if (!amount || amount <= 0) {
-                alert("Please enter a valid amount.");
-                return;
-            }
+    <script type="module">
+        import { firebaseConfig } from './config.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-            const btn = document.querySelector('.process-btn');
-            btn.innerHTML = "Processing...";
-            btn.disabled = true;
+   
 
-            setTimeout(() => {
-                document.getElementById('receiptMsg').innerText = `₹${amount} has been successfully credited to your account.`;
-                document.getElementById('successModal').style.display = "flex";
-                btn.innerHTML = "Process Deposit";
-                btn.disabled = false;
-            }, 1500);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            currentUser = user;
+        } else {
+            window.location.href = "index.html";
+        }
+    });
+
+    window.handleDeposit = async function() {
+        const amountInput = document.getElementById('amount').value;
+        const category = document.getElementById('transType').value;
+        const btn = document.querySelector('.process-btn');
+
+        if (!amountInput || amountInput <= 0) {
+            alert("Please enter a valid amount.");
+            return;
         }
 
-        function closeModal() {
-            document.getElementById('successModal').style.display = "none";
-            window.location.href = "home.html";
+        btn.innerHTML = "Processing Security...";
+        btn.disabled = true;
+
+        try {
+            // FIX: Using 'userID' (Capital ID) to match your balance calculation
+            await addDoc(collection(db, "transaction"), {
+                amount: parseFloat(amountInput),
+                date: serverTimestamp(),
+                name: `Self Deposit - ${category}`,
+                type: "credited",
+                userID: currentUser.uid // CHANGED FROM userId TO userID
+            });
+
+            document.getElementById('receiptMsg').innerText = `₹${amountInput} has been successfully credited.`;
+            document.getElementById('successModal').style.display = "flex";
+            
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Security Error: Could not save to database. Check your Rules.");
+        } finally {
+            btn.innerHTML = "Process Deposit";
+            btn.disabled = false;
         }
-    </script>
+    };
+
+    window.closeModal = function() {
+        document.getElementById('successModal').style.display = "none";
+        window.location.href = "home.html";
+    };
+</script>
 </body>
 </html>

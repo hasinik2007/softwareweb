@@ -52,31 +52,66 @@
         </div>
     </div>
 
-    <script>
-        function processPayment() {
-            const amount = document.getElementById('amount').value;
-            if (amount <= 0) {
-                alert("Please enter a valid amount.");
-                return;
-            }
+    <script type="module">
+  import { firebaseConfig } from './config.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; // ADDED
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-            // Simulate "Processing"
-            const btn = document.querySelector('.pay-btn');
-            btn.innerHTML = "Processing...";
-            btn.style.opacity = "0.7";
+    
 
-            setTimeout(() => {
-                document.getElementById('receiptMsg').innerText = `₹${amount} has been paid successfully to the Electricity Board.`;
-                document.getElementById('successModal').style.display = "flex";
-                btn.innerHTML = "Pay Bill Now";
-                btn.style.opacity = "1";
-            }, 1500);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app); // INITIALIZED
+    const db = getFirestore(app);
+
+    // 2. Define the payment function
+    window.processPayment = async function() {
+        const amountInput = document.getElementById('amount').value;
+        const billSelect = document.getElementById('billType');
+        const billName = billSelect.options[billSelect.selectedIndex].text;
+
+        if (amountInput <= 0) {
+            alert("Please enter a valid amount.");
+            return;
         }
 
-        function closeModal() {
-            document.getElementById('successModal').style.display = "none";
-            window.location.href = "home.html";
+        // Verify user is logged in
+        if (!auth.currentUser) {
+            alert("Session expired. Please login again.");
+            window.location.href = "index.html";
+            return;
         }
-    </script>
+
+        const btn = document.querySelector('.pay-btn');
+        btn.innerHTML = "Processing...";
+        btn.disabled = true;
+
+        try {
+            // 3. Write to the "transaction" collection with userID
+            await addDoc(collection(db, "transaction"), {
+                name: billName + " Payment",
+                amount: Number(amountInput),
+                type: "paid",                // Subtracts from balance
+                date: serverTimestamp(),
+                userID: auth.currentUser.uid // THE FIX: Links this to Rohan's balance
+            });
+
+            // 4. Show Success UI
+            document.getElementById('receiptMsg').innerText = `₹${amountInput} has been paid successfully for ${billName}.`;
+            document.getElementById('successModal').style.display = "flex";
+        } catch (error) {
+            console.error("Error adding transaction: ", error);
+            alert("Security Error: Check your Firebase Rules.");
+        } finally {
+            btn.innerHTML = "Pay Bill Now";
+            btn.disabled = false;
+        }
+    }
+
+    window.closeModal = function() {
+        document.getElementById('successModal').style.display = "none";
+        window.location.href = "home.html";
+    }
+</script>
 </body>
 </html>
